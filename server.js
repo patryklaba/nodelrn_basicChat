@@ -2,6 +2,10 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 const mime = require('mime');
+
+// modules 
+const chatServer = require('./lib/chat_server.js');
+//
 const cache = {}; // static files caching for faster site load
 
 
@@ -17,6 +21,9 @@ const server = http.createServer( (req, res) => {
   console.log(absPath);
   serveStatic(res, cache, absPath);
 }).listen(3000, () => console.log('listening on port 3000!'));
+
+// ChatServer communication
+chatServer.listen(server);
 
 
 function serveStatic(response, cache, pathToFile) {
