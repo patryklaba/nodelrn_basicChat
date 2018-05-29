@@ -1,0 +1,15 @@
+{
+  "name": "chatrooms",
+  "version": "1.0.0",
+  "description": "chatrooms app",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "labski",
+  "license": "ISC",
+  "dependencies": {
+    "mime": "^2.3.1"
+  }
+}
