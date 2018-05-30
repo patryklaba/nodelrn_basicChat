@@ -18,7 +18,6 @@ const server = http.createServer( (req, res) => {
     filePath = `public${req.url}`;
   }
   let absPath = `./${filePath}`;
-  console.log(absPath);
   serveStatic(res, cache, absPath);
 }).listen(3000, () => console.log('listening on port 3000!'));
 
@@ -34,7 +33,6 @@ function serveStatic(response, cache, pathToFile) {
     // sprawdzam czy zadany plik istnieje -> fs.constants.F_OK = warunek ist. pliku
     fs.access(pathToFile, fs.constants.F_OK, (err) => {
       if(err) {
-        console.log(`File ${pathToFile} does not exist`);
         return send404resp(response);
       }
       fs.readFile(pathToFile, (err, data) => {
@@ -60,10 +58,3 @@ function sendFile(response, filePath, fileContents) {
   });
   response.end(fileContents);
 }
-
-
-
-// prosty serwer plików statycznych gotowy 
-// zainicjowane repozytorium git (nie ma jeszcze remote)
-// dodać do gitignore katologi i pliki, których mają byc ignorowane (node_modules)
-// usunąc logowanie dev
