@@ -13,7 +13,7 @@
     <div id='room-list'></div>
     <div id='messages'></div>
   
-    <form id='send-form'>
+    <form id='send-form' autocomplete="off">
       <input id='send-message' />
       <input id='send-button' type='submit' value='Wyślij'/>
   
@@ -36,6 +36,19 @@
     socket.on('notifyUser:joinRoom', (data) => console.log(data.joinRoomMsg));
     socket.on('notifyRoom:newUser', (data) => console.log(data.newUserMsg));
     socket.on('notifyUser:roomInfo', (data) => console.log(data.roomInfoMsg));
+
+    const sendMsgForm = document.querySelector('#send-form');
+
+    sendMsgForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const message = {};
+      message["text"] = document.querySelector('#send-message').value;
+      message["room"] = "Lobby";
+      socket.emit('message', message);
+      return false;
+    });
+
+    socket.on('message', (message) => console.log(message.text));
   </script>
   </body>
 </html>
