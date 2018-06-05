@@ -1,3 +1,6 @@
+* {
+  box-sizing: border-box;
+}
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
@@ -25,6 +28,7 @@ a {
   background-color: #eee;
   margin-bottom: 1em;
   margin-right: 10px;
+  padding: 20px;
 }
 
 #room-list {
@@ -50,4 +54,18 @@ a {
 
 #help {
   font: 10px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+
+.user-message {
+  font-weight: bold;
+  color: #1ea063;
+}
+
+.info-message {
+  color: #d20001;
+}
+
+#messages > div {
+  margin: 5px 0;
 }
