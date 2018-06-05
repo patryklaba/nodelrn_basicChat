@@ -10,22 +10,26 @@ function sanitize(text) {
   return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); 
 }
 
-function createMessageEl(message, type) {
+function createMessageEl(message, toSelf) {
   let el = document.createElement('div');
-  if(type) el.className = `${type}-message`;
-  el.innerText = (!type) ? sanitize(message.text) : sanitize(`Me: ${message.text}`);
+  el.innerText = (toSelf) ? sanitize(`Me: ${message.text}`) : sanitize(message.text);
   return el;
 }
 
-function appendMessage(message, type) {
-  const msgElement = createMessageEl(message, type);
+function appendMessage(message, type, toSelf) {
+  const msgElement = createMessageEl(message, toSelf);
+  if(type) msgElement.className = `${type}-message`;
   ui.messages.appendChild(msgElement);
   ui.messageInput.value = '';
   ui.messages.scrollTop = ui.messages.scrollHeight;
 }
 
 function info(text) {
-  appendMessage({text}, 'info');
+  appendMessage({text}, 'info', false );
+}
+
+function warn(text) {
+  appendMessage({text}, 'warn', false );
 }
 
 
@@ -38,6 +42,10 @@ $(document).ready( () => {
     appendMessage(message);
   })
 
+  socket.on('server:info', (message) => {
+    info(message.text);
+  })
+
   ui.form.addEventListener('submit', (event) => {
     event.preventDefault();
     const textValue = ui.messageInput.value;
@@ -46,9 +54,9 @@ $(document).ready( () => {
       message["text"] = textValue;
       message["room"] = "Lobby";
       socket.emit('message', message);
-      appendMessage(message, 'user');
+      appendMessage(message, 'user', true);
     } else {
-      info('your message should have at least 2 characters', 'info');
+      warn('Your message should have at least 2 characters');
     }
     return false;
   })

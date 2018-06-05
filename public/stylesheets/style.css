@@ -47,7 +47,11 @@ a {
 }
 
 #send-message {
-  width: 700px;
+  width: 690px;
+  height: 40px;
+  font-size: 16px;
+  text-indent: 10px;
+  padding: 5px 0;
   margin-bottom: 1em;
   margin-right: 1em;
 }
@@ -63,7 +67,13 @@ a {
 }
 
 .info-message {
-  color: #d20001;
+  font-size: 12px;
+  color: #5d4444;
+}
+
+.warn-message {
+  font-size: 12px;
+  color: #d26900;
 }
 
 #messages > div {
