@@ -33,6 +33,20 @@ function warn(text) {
 }
 
 
+function handleUserInput (chatApp) {
+  const value = ui.messageInput.value;
+  if (value.length <= 1) warn('Your message should have at least 2 characters');
+  if (value[0] === '/') chatApp.processCmd(value);
+  if (value.length > 1) {
+    const message = {
+      room: 'Lobby',
+      text: value
+    };
+    appendMessage(message, 'user', true);
+    chatApp.sendMessage(message);
+  }
+}
+
 
 $(document).ready( () => {
   const chatApp = new Chat(socket);
@@ -48,17 +62,6 @@ $(document).ready( () => {
 
   ui.form.addEventListener('submit', (event) => {
     event.preventDefault();
-    const textValue = ui.messageInput.value;
-    if(textValue.length > 1) {
-      const message = {
-        room: 'Lobby',
-        text: textValue
-      };
-      appendMessage(message, 'user', true);
-      chatApp.sendMessage(message);
-    } else {
-      warn('Your message should have at least 2 characters');
-    }
-    return false;
+    handleUserInput(chatApp);
   })
 });
