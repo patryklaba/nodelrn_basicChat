@@ -2,10 +2,10 @@ const Chat = function(socket) {
   this.socket = socket;
 }
 
-Chat.prototype.sendMessage = function(room, text) {
+Chat.prototype.sendMessage = function({room, text}) {
   this.socket.emit('message', {
-    room: room,
-    text: text
+    room,
+    text
   });
 }
 

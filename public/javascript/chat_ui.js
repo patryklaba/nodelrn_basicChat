@@ -50,11 +50,12 @@ $(document).ready( () => {
     event.preventDefault();
     const textValue = ui.messageInput.value;
     if(textValue.length > 1) {
-      const message = {};
-      message["text"] = textValue;
-      message["room"] = "Lobby";
-      socket.emit('message', message);
+      const message = {
+        room: 'Lobby',
+        text: textValue
+      };
       appendMessage(message, 'user', true);
+      chatApp.sendMessage(message);
     } else {
       warn('Your message should have at least 2 characters');
     }
